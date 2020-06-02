@@ -1,0 +1,32 @@
+<html>
+  <body>
+    <button id="btn">发送请求</button>
+    <div>
+      收到数据：
+      <div id="data"></div>
+    </div>
+  </body>
+  <script src="./publisher.js"></script>
+  <script>
+    const pubber = new Pubber()
+    pubber.sub('request', (...args) => {
+      console.log('数据来啦啦啦啦啦啦啦啦啦啦啦啦！')
+      console.log(args)
+    })
+
+    const doc = document
+    doc.querySelector('#btn').addEventListener('click', () => {
+      const xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          doc.querySelector('#data').innerHTML = xhr.responseText
+          pubber.notify('request', xhr.responseText)
+        }
+      }
+      // 安装一个cors，使浏览器支持跨域
+      // https://chrome.google.com/webstore/detail/cors/mmmbikpdibfbpiimffehmfannamnkbgo/related?hl=zh-CN
+      xhr.open('GET', 'http://jsonplaceholder.typicode.com/posts', {})
+      xhr.send()
+    }, false)
+  </script>
+</html>
