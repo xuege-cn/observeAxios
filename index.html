@@ -25,7 +25,8 @@
       }
       // 安装一个cors，使浏览器支持跨域
       // https://chrome.google.com/webstore/detail/cors/mmmbikpdibfbpiimffehmfannamnkbgo/related?hl=zh-CN
-      xhr.open('GET', 'http://jsonplaceholder.typicode.com/posts', {})
+      xhr.open('GET', 'http://jsonplaceholder.typicode.com/posts', true)
+      debugger
       xhr.send()
     }, false)
   </script>
